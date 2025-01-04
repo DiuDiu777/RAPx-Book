@@ -216,13 +216,13 @@ Example API: [String::from_raw_parts()](https://doc.rust-lang.org/std/string/str
 
 The content extracted from String `s` using slice index `I` must remain valid UTF-8.
 
-**psp-12.3: ValidString(s, I)**: $$s.I \in \text{utf-8}$$
+**psp-12.3: ValidString(s, I)**: $$s[I] \in \text{utf-8}$$
 
 Example APIs: [String.get_unchecked()](https://doc.rust-lang.org/std/string/struct.String.html#method.get_unchecked), [String.get_unchecked_mut()](https://doc.rust-lang.org/std/string/struct.String.html#method.get_unchecked_mut)
 
 The slice content ranging from `begin` to `end` within String s must be valid UTF-8.
 
-**psp-12.4: ValidString(s, begin, end)**: $$s.(begin..end) \in \text{utf-8}$$
+**psp-12.4: ValidString(s, begin, end)**: $$s[begin..end] \in \text{utf-8}$$
 
 Example APIs: [String.slice_unchecked()](https://doc.rust-lang.org/std/string/struct.String.html#method.slice_unchecked), [String.slice_mut_unchecked()](https://doc.rust-lang.org/std/string/struct.String.html#method.slice_mut_unchecked)
 
