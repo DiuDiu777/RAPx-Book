@@ -118,11 +118,11 @@ In practice, an API may enforce that a pointer `p` to a type `T` must satisfy th
 
 **psp-5: NotDangling(p, T)**: 
 
-$$\text{allocator}(p) = x, \ x \in \lbrace \text{GlobalAllocator}, \text{OtherAllocator}, \text{stack} \rbrace || \text{sizeof}(T) = 0 $$ 
+$$\text{allocator}(p) = x, s.t. \ x \in \lbrace \text{GlobalAllocator}, \text{OtherAllocator}, \text{stack} \rbrace || \text{sizeof}(T) = 0 $$ 
 
 **Proposition 1** (NOT SURE): NotDangling(p, T) implies NonNull(p).
 
-Example API: [ptr::offset()](https://doc.rust-lang.org/beta/std/primitive.pointer.html#method.offset), [Box::from_raw()](https://doc.rust-lang.org/beta/std/boxed/struct.Box.html#method.from_raw)
+Example APIs: [ptr::offset()](https://doc.rust-lang.org/beta/std/primitive.pointer.html#method.offset), [Box::from_raw()](https://doc.rust-lang.org/beta/std/boxed/struct.Box.html#method.from_raw)
 
 Besides, some properties may require the allocator to be consistent, i.e., the memory address pointed by the pointer `p` should be allocated by a specific allocator `A`.
 
@@ -134,7 +134,7 @@ If the allocator `A` is unspecified, it typically defaults to the global allocat
 
 **psp-7: AllocatorConsistency(p)**: $$\text{allocator}(p) = \text{GlobalAllocator} $$
 
-Example APIs: [Arc::from_raw()](https://doc.rust-lang.org/std/sync/struct.Arc.html#method.from_raw),[Box::from_raw()](https://doc.rust-lang.org/std/boxed/struct.Box.html#method.from_raw)
+Example APIs: [Arc::from_raw()](https://doc.rust-lang.org/std/sync/struct.Arc.html#method.from_raw), [Box::from_raw()](https://doc.rust-lang.org/std/boxed/struct.Box.html#method.from_raw)
 
 #### 3.2.2 Pointee
 
@@ -161,7 +161,7 @@ A safety property may require the two pointers do not overlap with respect to `T
 
 Example APIs: [ptr::copy_from()](https://doc.rust-lang.org/std/ptr/fn.copy.html), [ptr.copy()](https://doc.rust-lang.org/std/ptr/fn.copy_from.html) 
 
-It may also require the two pointers do not overlap with respect to $T\times count$: 
+It may also require the two pointers do not overlap with respect to \\(T * count\\): 
 
 **psp-11: NonOverlap(p1, p2, T, count)**: $$|p1 - p2| > \text{sizeof}(T) * count $$
 
