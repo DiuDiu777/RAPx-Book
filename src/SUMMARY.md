@@ -18,5 +18,3 @@
   - [Concurrency Bug Detection (TO ADD)](./6.5-concurrency.md)
 - [Utilities](./7-utilities.md)
   - [Logging](./7.1-log.md)
-- [Appendix](./A-safetyprop.md) 
-  - [A: Privimitive Safety Properties](./appendix.a-safetyprop.md) 
