@@ -176,7 +176,7 @@ Example APIs: [ptr::copy_nonoverlapping()](https://doc.rust-lang.org/std/ptr/fn.
 
 When converting a value `x` to an interger, the value should not be greater than the max or less the min value that can be represented by the integer type `T`.
 
-**psp-10.1: ValidInt(x, T)** $$\text{T::MIN} \geq x \geq \text{T::MAX} $$
+**psp-10.1: ValidInt(x, T)** $$\text{T::MAX} \geq x \geq \text{T::MIN} $$
 
 Example APIs: [f32.to_int_unchecked()](https://doc.rust-lang.org/std/primitive.f32.html#method.to_int_unchecked), [SimdFloat.to_int_unchecked()](https://doc.rust-lang.org/std/simd/num/trait.SimdFloat.html#tymethod.to_int_unchecked)
 
