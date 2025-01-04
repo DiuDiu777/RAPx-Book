@@ -228,7 +228,7 @@ Example APIs: [String.slice_unchecked()](https://doc.rust-lang.org/std/string/st
 
 The safety property of CString generally requires the bytes of a u8 slice or pointed by a pointer `p` shoule contains a null terminator within isize::MAX from `p`.
 
-**psp-13: ValidCStr(p, len)** $$\exists offset,\ s.t., *(p + offset) = \text{null}\ \\&\\&\ \text{ValidInt}(offset, isize) $$ 
+**psp-13: ValidCStr(p, len)** $$\exists offset,\ s.t., *(p+offset) = \text{null}\ \\&\\&\ \text{ValidInt}(offset, isize) $$ 
 
 Example APIs: [CStr::from_bytes_with_nul_unchecked()](https://doc.rust-lang.org/std/ffi/struct.CStr.html#method.from_bytes_with_nul_unchecked), [CStr::from_ptr()](https://doc.rust-lang.org/std/ffi/struct.CStr.html#method.from_ptr)
 
@@ -315,9 +315,11 @@ Refer to the [Rustnomicon](https://doc.rust-lang.org/nomicon/send-and-sync.html)
 
 Automatically verifying the correctness of the Send trait implementation for any type T is difficult. However, implementing the Send trait can be considered safe if T satisfies the following conditions:
 
-$$\forall field \in T,\ \text{refcount}(field) = false$$
+$$\forall field \in T,\ \text{hasrefcound}(field) = false$$
 
-(TO FIX: This should be change to a recursive form.)
+The function `hasrefcount(field)` evaluates to true if the type of the field is `Rc`. If the field is also a compound type, we should recursively evaluate each sub-field.
+
+(TO FIX: This can be defined in a recursive form.)
 
 This is a conditional precondition for implementing the Send trait. Since implementations of Send trait must not introduce concurrency issues, we do not define corresponding hazards.
 
@@ -332,11 +334,11 @@ $$\forall field \in T,\ \text{interiormut}(field) = false$$
 Example APIs: Auto trait [Send](https://doc.rust-lang.org/std/marker/trait.Send.html), [Sync](https://doc.rust-lang.org/std/marker/trait.Sync.html)
 
 #### 3.5.3 Pin
-Implementing Pin for !Unpin is also valid in Rust, developers should not move the Pin object pointed by `p` after created.
+Implementing `Pin` for `!Unpin` is also valid in Rust, developers should not move the pinned object pointed by `p` after created.
 
 **psp-23: Pinned(p)**
 
-$$\text{pinned}(*p) = true$$
+$$\forall t > \text{timeofpin},\text{addressof}(*p) = p $$
 
 Example APIs: [Pin::new_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.new_unchecked),[Pin.into_inner_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.into_inner_unchecked), [Pin.map_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked), [Pin.get_unchecked_mut()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.get_unchecked_mut), [Pin.map_unchecked_mut](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked_mut)
 
