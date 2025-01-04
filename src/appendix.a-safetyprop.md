@@ -1,4 +1,4 @@
-# Privimitive Safety Properties for Rust Contract Design (Draft)
+# A. Privimitive Safety Properties for Rust Contract Design (Draft)
 
 This document presents a draft outlining the fundamental safety properties essential for contract definition. The current documentation on API safety descriptions in the standard library remains ad hoc. For example, the term `valid pointer' is frequently used, but the validity of a pointer depends on the context. In practice, a valid pointer may need to satisfy one or more fundamental conditions, such as being non-null, not dangling, and pointing to memory properly aligned and initialized for type T. It is worth noting that the Rust community is making progress toward standardizing contract design, as highlighted in the links below. We believe this proposal will contribute to the development and refinement of contract specifications.
 
