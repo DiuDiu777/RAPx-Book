@@ -329,7 +329,7 @@ Similar to Send(T), we can define the followin optional precondition for Sync(T)
 
 $$\forall field \in T,\ \text{interiormut}(field) = false$$
 
-(TO FIX: This should be change to a recursive form.)
+(TO FIX: This should be changed to a recursive form.)
 
 Example APIs: Auto trait [Send](https://doc.rust-lang.org/std/marker/trait.Send.html), [Sync](https://doc.rust-lang.org/std/marker/trait.Sync.html)
 
