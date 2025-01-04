@@ -171,13 +171,13 @@ Example APIs: [ptr::copy_nonoverlapping()](https://doc.rust-lang.org/std/ptr/fn.
 
 #### 3.3.1 Integer
 
-When converting a value `x` to an interger, the value should not be greater the max or less the min value that can be represented by the integer type `T`.
+When converting a value `x` to an interger, the value should not be greater than the max or less the min value that can be represented by the integer type `T`.
 
 **psp-12: ValidInt(x, T)** $$\text{T::MIN} \geq x \geq \text{T::MAX} $$
 
-Example API: [f32.to_int_unchecked()](https://doc.rust-lang.org/std/primitive.f32.html#method.to_int_unchecked)
+Example APIs: [f32.to_int_unchecked()](https://doc.rust-lang.org/std/primitive.f32.html#method.to_int_unchecked), [SimdFloat.to_int_unchecked()](https://doc.rust-lang.org/std/simd/num/trait.SimdFloat.html#tymethod.to_int_unchecked)
 
-Some APIs may require the value `x` of an integer type should not be zero.
+The result of integer arithmatic should not be greater than the max or less the min value that can be represented by the integer type `T`.
 
 **psp-13: ValidInt(binop, x, y, T)** $$\text{T::MAX} \geq \text{binop}(x, y) \geq \text{T::MIN} $$
 
@@ -186,6 +186,8 @@ Example APIs: [isize.add()](https://doc.rust-lang.org/std/primitive.isize.html#m
 Unary arithmatic operations have similar requirements.
 
 **psp-14: ValidInt(uop, x, T)** $$\text{T::MAX} \geq \text{uop}(x) \geq \text{T::MIN} $$
+
+Some APIs may require the value `x` of an integer type should not be zero.
 
 **psp-15: NotZero(x)** $$x != 0 $$
 
