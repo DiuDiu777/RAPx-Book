@@ -86,7 +86,7 @@ A safety property may require the size of a type `T` cannot be zero. We can form
 
 **psp-2: NonZST(T)**: $$\text{sizeof}(T) > 0$$
 
-Example API: [NonNull.offset_from](https://doc.rust-lang.org/core/ptr/struct.NonNull.html#method.offset_from), [pointer.sub_ptr](https://doc.rust-lang.org/beta/std/primitive.pointer.html#method.sub_ptr)
+Example API: [NonNull.offset_from()](https://doc.rust-lang.org/core/ptr/struct.NonNull.html#method.offset_from), [pointer.sub_ptr()](https://doc.rust-lang.org/beta/std/primitive.pointer.html#method.sub_ptr)
 
 #### 3.1.3 Padding 
 Padding refers to the unused space inserted between successive elements in an array to ensure proper alignment. Padding is taken into account when calculating the size of each element. For example, the following data structure includes 1 byte of padding, resulting in a total size of 4 bytes.
@@ -342,7 +342,7 @@ Implementing `Pin` for `!Unpin` is also valid in Rust, developers should not mov
 
 $$\forall t > \text{timeofpin},\text{addressof}(*p) = p $$
 
-Example APIs: [Pin::new_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.new_unchecked),[Pin.into_inner_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.into_inner_unchecked), [Pin.map_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked), [Pin.get_unchecked_mut()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.get_unchecked_mut), [Pin.map_unchecked_mut](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked_mut)
+Example APIs: [Pin::new_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.new_unchecked),[Pin.into_inner_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.into_inner_unchecked), [Pin.map_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked), [Pin.get_unchecked_mut()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.get_unchecked_mut), [Pin.map_unchecked_mut](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.map_unchecked_mut())
 
 #### 3.5.4 File Read/Write
 
@@ -356,7 +356,7 @@ Example APIs: [trait.FromRawFd::from_raw_fd()](https://doc.rust-lang.org/std/os/
 
 #### 3.5.5 Volatility
 
-There are specific APIs for volatile memory access in std-lib, like [ptr::read_volatile](https://doc.rust-lang.org/std/ptr/fn.read_volatile.html) and [ptr::write_volatile](https://doc.rust-lang.org/std/ptr/fn.write_volatile.html). Other memory operations should require non-volatile by default.
+There are specific APIs for volatile memory access in std-lib, like [ptr::read_volatile()](https://doc.rust-lang.org/std/ptr/fn.read_volatile.html) and [ptr::write_volatile()](https://doc.rust-lang.org/std/ptr/fn.write_volatile.html). Other memory operations should require non-volatile by default.
 
 **psp-25: NonVolatile(p)**
 
