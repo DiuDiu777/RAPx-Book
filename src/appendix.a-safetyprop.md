@@ -177,7 +177,7 @@ When converting a value `x` to an interger, the value should not be greater than
 
 Example APIs: [f32.to_int_unchecked()](https://doc.rust-lang.org/std/primitive.f32.html#method.to_int_unchecked), [SimdFloat.to_int_unchecked()](https://doc.rust-lang.org/std/simd/num/trait.SimdFloat.html#tymethod.to_int_unchecked)
 
-The result of integer arithmatic should not be greater than the max or less the min value that can be represented by the integer type `T`.
+The result of interger arithmatic of two values `x` and `y` of type `T` should not overflow the max or the min value.
 
 **psp-13: ValidInt(binop, x, y, T)** $$\text{T::MAX} \geq \text{binop}(x, y) \geq \text{T::MIN} $$
 
@@ -193,7 +193,6 @@ Some APIs may require the value `x` of an integer type should not be zero.
 
 Example API: [NonZero::from_mut_unchecked()](https://doc.rust-lang.org/beta/std/num/struct.NonZero.html#tymethod.from_mut_unchecked)
 
-The result of interger arithmatic of two values `x` and `y` of type `T` should not overflow the max or the main value.
 
 #### 3.3.2 String
 There are two types of string in Rust, [String](https://doc.rust-lang.org/std/string/struct.String.htm) which requires valid utf-8 format, and [CStr](https://doc.rust-lang.org/std/ffi/struct.CStr.html) for interacting with foreign functions.
