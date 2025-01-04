@@ -9,7 +9,7 @@
   - [Interval Analysis (TO ADD)](./5.2-interval.md)
   - [Value-flow Analysis (ON GOING)](./5.3-value.md)
   - [Control-flow Analysis (ON GOING)](./5.4-control.md)
-  - [Heap-item Type Analysis](./5.5-type.md)
+  - [Heap-item Type Analysis](./5.5-heap.md)
 - [Advanced Applications](./6-application.md)
   - [Dangling Pointer Detection](./6.1-dangling.md)
   - [Memory Leakage Detection](./6.2-memleak.md)
