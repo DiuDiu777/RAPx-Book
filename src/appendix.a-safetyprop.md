@@ -57,8 +57,8 @@ In practice, a safety property may correspond to a precondition, optional precon
 | 18  | Alias(p)  | hazard | [pointer.as_mut()](https://doc.rust-lang.org/std/primitive.pointer.html#method.as_mut) |
 | 19  | Lifetime(p, 'a)  | precond | [AtomicPtr::from_ptr()](https://doc.rust-lang.org/std/sync/atomic/struct.AtomicPtr.html#method.from_ptr)  |
 | 20  | Trait(T)  | option | [ptr::read()](https://doc.rust-lang.org/std/ptr/fn.read.html)  |
-| 21  | Send(T)  | option | [Send](https://doc.rust-lang.org/std/marker/trait.Send.html) |
-| 22  | Sync(T)  | option | [Sync](https://doc.rust-lang.org/std/marker/trait.Sync.html) |
+| 21  | Send(T, NoRc)  | option | [Send](https://doc.rust-lang.org/std/marker/trait.Send.html) |
+| 22  | Sync(T, NoInteriorMut)  | option | [Sync](https://doc.rust-lang.org/std/marker/trait.Sync.html) |
 | 23  | Pinned(p)  | hazard | [Pin::new_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.new_unchecked)  |
 | 24  | Opened(fd) | precond | [trait.FromRawFd::from_raw_fd()](https://doc.rust-lang.org/std/os/fd/trait.FromRawFd.html#tymethod.from_raw_fd)  |
 | 25  | NonVolatile(p) | precond | [ptr::read()](https://doc.rust-lang.org/std/ptr/fn.read.html) |
@@ -303,7 +303,7 @@ If a parameter type `T` implements certain traits, it can guarantee safety or mi
 
 $$t \in \text{trait}(T),\ t \in \lbrace \text{Copy}, \text{Unpin} \rbrace $$
 
-In particular, \\( \text{Copy} \int \text{trait}(T) \\) ensures that alias issues or Alias(p) are mitigated, and \\( \text{Unpin} \int \text{trait}(T) \\) avoids the hazard associated with pinned data or Pinned(p).
+In particular, \\( \text{Copy} \in \text{trait}(T) \\) ensures that alias issues or Alias(p) are mitigated, and \\( \text{Unpin} \in \text{trait}(T) \\) avoids the hazard associated with pinned data or Pinned(p).
 
 Example APIs: [ptr::read()](https://doc.rust-lang.org/std/ptr/fn.read.html), [ptr::read_volatile()](https://doc.rust-lang.org/std/ptr/fn.read_volatile.html), [Pin::new_unchecked()](https://doc.rust-lang.org/std/pin/struct.Pin.html#method.new_unchecked)
 
@@ -311,9 +311,9 @@ Example APIs: [ptr::read()](https://doc.rust-lang.org/std/ptr/fn.read.html), [pt
 #### 3.5.2 Thread-Safe (Atomicity)
 Refer to the [Rustnomicon](https://doc.rust-lang.org/nomicon/send-and-sync.html), it generally relates to the implementation of the Send/Sync attribute that requires update operations of a critical memory to be exclusive. 
 
-**psp-21: Send(T)**
+Automatically verifying the correctness of the Send trait implementation for any type T is difficult. However, implementing the Send trait can be considered safe if T has no field of `Rc` type.
 
-Automatically verifying the correctness of the Send trait implementation for any type T is difficult. However, implementing the Send trait can be considered safe if T satisfies the following conditions:
+**psp-21: Send(T, NoRc)**
 
 $$\forall field \in T,\ \text{hasrefcound}(field) = false$$
 
@@ -321,13 +321,15 @@ The function `hasrefcount(field)` evaluates to true if the type of the field is 
 
 (TO FIX: This can be defined in a recursive form.)
 
-This is a conditional precondition for implementing the Send trait. Since implementations of Send trait must not introduce concurrency issues, we do not define corresponding hazards.
-
-**psp-22: Sync(T)**
+This is a conditional precondition for implementing the Send trait (NOT SURE: Is it sufficient?). Since implementations of Send trait must not introduce concurrency issues, we do not define corresponding hazards.
 
 Similar to Send(T), we can define the followin optional precondition for Sync(T):
 
+**psp-22: Sync(T, NoInteriorMut)**
+
 $$\forall field \in T,\ \text{interiormut}(field) = false$$
+
+The function interiormut(field) evaluates to trues if the type of the field is `Cell`, `RefCell`, or `UnsafeCell`. If the field is also a compound type, we should recursively evaluate each sub-field.
 
 (TO FIX: This should be changed to a recursive form.)
 
