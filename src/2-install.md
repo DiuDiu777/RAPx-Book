@@ -18,10 +18,10 @@ rustup show
 ## Install
 ### Download the project
 ```shell
-git clone https://github.com/Artisan-Lab/RAP.git
+git clone https://github.com/Artisan-Lab/RAPx.git
 ```
 
-### Build and install RAP
+### Build and install RAPx
 
 ```shell
 ./install.sh
@@ -30,7 +30,7 @@ git clone https://github.com/Artisan-Lab/RAP.git
 You can combine the previous two steps into a single command:
 
 ```shell
-cargo +nightly-2024-10-12 install rap --git https://github.com/Artisan-Lab/RAP.git
+cargo +nightly-2024-10-12 install rapx --git https://github.com/Artisan-Lab/RAPx.git
 ```
 
 For macOS users, you may need to manually export Z3-related headers and libraries if you encounter compilation errors.
@@ -39,32 +39,32 @@ export C_INCLUDE_PATH=/opt/homebrew/Cellar/z3/VERSION/include:$C_INCLUDE_PATH
 ln -s /opt/homebrew/Cellar/z3/VERSION/lib/libz3.dylib /usr/local/lib/libz3.dylib
 ```
 
-After this step, you should be able to see the RAP plugin for cargo.
+After this step, you should be able to see the RAPx plugin for cargo.
 ```
 cargo --list
 ```
 
-Execute the following command to run RAP and print the help message:
+Execute the following command to run RAPx and print the help message:
 ```
-cargo rap -help
+cargo rapx -help
 00:00:00|RAP|INFO|: 
 Usage:
-    cargo rap [rap options] -- [cargo check options]
+    cargo rapx [rapx options] -- [cargo check options]
 
-Rap Options:
+RAPx Options:
 
 Use-After-Free/double free detection.
-    -F or -uaf       command: "cargo rap -uaf"
+    -F or -uaf       command: "cargo rapx -uaf"
 
 Memory leakage detection.
-    -M or -mleak     command: "cargo rap -mleak"
+    -M or -mleak     command: "cargo rapx -mleak"
 
 Debugging options:
     -mir             print the MIR of each function
 
 General command: 
     -H or -help:     show help information
-    -V or -version:  show the version of RAP
+    -V or -version:  show the version of RAPx
 ...
 ```
 
