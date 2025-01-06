@@ -5,7 +5,7 @@
 * macOS (both x86_64 and aarch64 version)
 
 ## Preparation
-RAP is based on Rust version nightly-2024-06-30. You can install this version using the following command.
+RAPx is based on Rust version nightly-2024-10-12. You can install this version using the following command.
 ```shell
 rustup toolchain install nightly-2024-10-12 --profile minimal --component rustc-dev,rust-src,llvm-tools-preview
 ```
