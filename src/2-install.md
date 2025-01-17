@@ -33,10 +33,19 @@ You can combine the previous two steps into a single command:
 cargo +nightly-2024-10-12 install rapx --git https://github.com/Artisan-Lab/RAPx.git
 ```
 
-For macOS users, you may need to manually export Z3-related headers and libraries if you encounter compilation errors.
+For macOS users, you may encounter compilation errors related to Z3 headers and libraries. There are two solutions:
+
+The first one is to manually export the headers and libraries as follows:
 ```
 export C_INCLUDE_PATH=/opt/homebrew/Cellar/z3/VERSION/include:$C_INCLUDE_PATH
 ln -s /opt/homebrew/Cellar/z3/VERSION/lib/libz3.dylib /usr/local/lib/libz3.dylib
+```
+
+Alternatively, you can modify the [Cargo.toml](https://github.com/Artisan-Lab/RAPx/blob/main/rapx/Cargo.toml） file to change the dependency of Z3 to use static linkage. However, this may significantly slow down the installation process, so we do not recommend enabling this option by default.
+
+```
+[dependencies]
+z3 = {version="0.12.1", features = ["static-link-z3"]}
 ```
 
 After this step, you should be able to see the RAPx plugin for cargo.
