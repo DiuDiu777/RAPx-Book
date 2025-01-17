@@ -41,7 +41,7 @@ export C_INCLUDE_PATH=/opt/homebrew/Cellar/z3/VERSION/include:$C_INCLUDE_PATH
 ln -s /opt/homebrew/Cellar/z3/VERSION/lib/libz3.dylib /usr/local/lib/libz3.dylib
 ```
 
-Alternatively, you can modify the [Cargo.toml](https://github.com/Artisan-Lab/RAPx/blob/main/rapx/Cargo.toml） file to change the dependency of Z3 to use static linkage. However, this may significantly slow down the installation process, so we do not recommend enabling this option by default.
+Alternatively, you can modify the [Cargo.toml](https://github.com/Artisan-Lab/RAPx/blob/main/rapx/Cargo.toml) file to change the dependency of Z3 to use static linkage. However, this may significantly slow down the installation process, so we do not recommend enabling this option by default.
 
 ```
 [dependencies]
